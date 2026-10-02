@@ -36,7 +36,7 @@ variable "tags" {
     description = "A map of tags to assign to the resources."
     type        = map(string)
     
-    default     = "terraform"
+    default     = { managed_by = "terraform" }
 }
 
 variable "suscription_id" {
