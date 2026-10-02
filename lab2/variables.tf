@@ -27,9 +27,9 @@ variable "location" {
 
 variable "vnet_address_space" {
     description = "The address space for the virtual network."
-    type        = string
+    type        = list(string)
     
-    default     = "10.0.0.0/16"
+    default     = ["10.0.0.0/16"]
 }
 
 variable "tags" {
@@ -37,4 +37,11 @@ variable "tags" {
     type        = map(string)
     
     default     = "terraform"
+}
+
+variable "suscription_id" {
+    description = "The Azure subscription ID where the resources will be deployed."
+    type        = string
+    default     = "your-subscription-id"
+    sensitive   = true
 }
