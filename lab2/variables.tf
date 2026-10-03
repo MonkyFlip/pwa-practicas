@@ -42,6 +42,6 @@ variable "tags" {
 variable "subscription_id" {
     description = "The Azure subscription ID where the resources will be deployed."
     type        = string
-    default     = "your-subscription-id"
+    default     = "faf450df-7a1e-41be-986d-b997d337fe77"
     sensitive   = true
 }
