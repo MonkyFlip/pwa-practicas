@@ -1,5 +1,5 @@
 .terraform/
-*.tfstate
-*.tfstate.
-*crash.log 
-*.tfvars 
+terraform/hashicorp/
+*.tfstate*
+crash.log
+*.tfvars
