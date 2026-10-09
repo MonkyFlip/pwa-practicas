@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "qa" {
 # retiene los datos por 30 días y limita la ingesta diaria a 0.1 GB.
 resource "azurerm_log_analytics_workspace" "qa" {
   name                = "log-${local.suffix}"
-  location            = azurerm_resource_group.qa.location
+  location            = local.resource_location
   resource_group_name = azurerm_resource_group.qa.name
   sku                 = var.log_analytics_sku
   retention_in_days   = 30
@@ -23,7 +23,7 @@ resource "azurerm_log_analytics_workspace" "qa" {
 # de Log Analytics para centralizar la telemetría.
 resource "azurerm_application_insights" "qa" {
   name                 = "appi-${local.suffix}"
-  location             = azurerm_resource_group.qa.location
+  location             = local.resource_location
   resource_group_name  = azurerm_resource_group.qa.name
   workspace_id         = azurerm_log_analytics_workspace.qa.id
   application_type     = var.application_type
@@ -35,7 +35,7 @@ resource "azurerm_application_insights" "qa" {
 # el nivel de servicio se determina mediante una variable.
 resource "azurerm_service_plan" "qa" {
   name                = "asp-${local.suffix}"
-  location            = azurerm_resource_group.qa.location
+  location            = local.resource_location
   resource_group_name = azurerm_resource_group.qa.name
   os_type             = "Linux"
   sku_name            = var.service_plan_sku_name
@@ -46,7 +46,7 @@ resource "azurerm_service_plan" "qa" {
 # aceptar únicamente HTTPS y requerir TLS 1.2 como mínimo.
 resource "azurerm_linux_web_app" "qa" {
   name                = var.web_app_name
-  location            = azurerm_resource_group.qa.location
+  location            = local.resource_location
   resource_group_name = azurerm_resource_group.qa.name
   service_plan_id     = azurerm_service_plan.qa.id
   https_only          = true
@@ -66,4 +66,3 @@ resource "azurerm_linux_web_app" "qa" {
   }
   tags = local.tags
 }
-
